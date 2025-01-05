@@ -55,7 +55,7 @@ All projects are or will be **open-source**, so feel free to contribute, modify,
     [Visit The Daily Reel](https://the-daily-reel.vercel.app/)
 
 14. **Day 14 - ShortURL**  
-    A website that shortens URL using LLM Tokenization. Does work for famous URLs like Google's, but once they get long and weird, it becomes bad/longer...
+    A website that shortens URLs using LLM Tokenization. Does work for famous URLs like Google's, but once they get long and weird, it becomes bad/longer...
 
 ---
 
