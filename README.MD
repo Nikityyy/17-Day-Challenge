@@ -60,6 +60,9 @@ All projects are or will be **open-source**, so feel free to contribute, modify,
 14. **Day 15 - Chess**  
     A fully functional (with bugs you will never experience 🤫) Chess Engine.
 
+14. **Day 16 - TicTacToe**  
+    Just a TicTacToe game where you play against Minimax with Alpha Beta Pruning. But there is more... 3x3 is normal, this one has 5x5 too!
+
 ---
 
 ## Connect
