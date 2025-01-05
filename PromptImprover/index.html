@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nikita Berger | Prompt Improver</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(0deg, rgba(240,234,225,1) 0%, rgba(247,247,247,1) 100%);
+            height: 100svh;
+            margin: 0;
+        }
+
+        .button {
+            position: relative;
+            font-family: "Poppins", sans-serif;
+            width: 200px;
+            height: 60px;
+            background: linear-gradient(145deg, #ffffff, #d6d6d6);
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow:
+                4px 4px 8px rgba(0, 0, 0, 0.1),
+                -4px -4px 8px rgba(255, 255, 255, 0.7),
+                inset 0 0 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            pointer-events: none;
+            box-shadow:
+                inset 2px 2px 4px rgba(0, 0, 0, 0.1),
+                inset -2px -2px 4px rgba(255, 255, 255, 0.5);
+        }
+
+        .button .button-text {
+            position: relative;
+            z-index: 1;
+            font-size: 18px;
+            font-weight: 400;
+            color: #333;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.7);
+            transition: all 0.3s ease;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                6px 6px 12px rgba(0, 0, 0, 0.15),
+                -6px -6px 12px rgba(255, 255, 255, 0.8),
+                inset 0 0 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .button:hover .button-text {
+            color: #555;
+        }
+
+        .button:active {
+            transform: translateY(2px);
+            box-shadow:
+                2px 2px 6px rgba(0, 0, 0, 0.2),
+                -2px -2px 6px rgba(255, 255, 255, 0.6),
+                inset 1px 1px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .row {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .text-area {
+            font-family: 'Poppins', sans-serif;
+            width: 500px;
+            height: 200px;
+            padding: 20px;
+            border: none;
+            border-radius: 3rem;
+            box-shadow:
+                4px 4px 8px rgba(0, 0, 0, 0.1),
+                -4px -4px 8px rgba(255, 255, 255, 0.7);
+            outline: none;
+            resize: none;
+        }
+
+        #output {
+            width: 500px;
+            height: 200px;
+            padding: 20px;
+            border-radius: 3rem;
+            box-shadow:
+                4px 4px 8px rgba(0, 0, 0, 0.1),
+                -4px -4px 8px rgba(255, 255, 255, 0.7);
+            border: none;
+            outline: none;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            position: relative;
+            background-color: white;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #output.empty::before {
+            content: "Output will be here";
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            visibility: visible;
+            opacity: 1;
+        }
+
+        #output p,
+        #output ul,
+        #output ol {
+            margin: 0;
+        }
+
+        #output code {
+            background-color: #f0f0f0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #d14;
+        }
+
+        #output blockquote {
+            border-left: 4px solid #ddd;
+            padding-left: 10px;
+            color: #555;
+            font-style: italic;
+        }
+
+        .copy-button {
+            font-family: "Poppins", sans-serif;
+            width: 150px;
+            height: 50px;
+            background: linear-gradient(145deg, #ffffff, #d6d6d6);
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow:
+                4px 4px 8px rgba(0, 0, 0, 0.1),
+                -4px -4px 8px rgba(255, 255, 255, 0.7),
+                inset 0 0 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .copy-button:hover {
+            transform: translateY(-2px);
+            box-shadow:
+                6px 6px 12px rgba(0, 0, 0, 0.15),
+                -6px -6px 12px rgba(255, 255, 255, 0.8),
+                inset 0 0 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .copy-button:active {
+            transform: translateY(2px);
+            box-shadow:
+                2px 2px 6px rgba(0, 0, 0, 0.2),
+                -2px -2px 6px rgba(255, 255, 255, 0.6),
+                inset 1px 1px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <h1>Prompt Improver</h1>
+            <textarea class="text-area" id="input" placeholder="Enter your prompt here..."
+                spellcheck="false"></textarea>
+            <button class="button">
+                <span class="button-text">Improve</span>
+            </button>
+            <div id="output" class="empty"></div>
+            <button class="copy-button" id="copy-button">
+                <span class="button-text">Copy Output</span>
+            </button>
+        </div>
+    </div>
+    <script>
+        const improveButton = document.querySelector('.button');
+        const inputField = document.getElementById('input');
+        const outputField = document.getElementById('output');
+        const copyButton = document.getElementById('copy-button');
+        const API_KEY = "";
+        const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-8b:generateContent?key=${API_KEY}`;
+
+        improveButton.addEventListener('click', async () => {
+            const input = inputField.value.trim();
+            if (!input) {
+                alert("Please enter a prompt.");
+                return;
+            }
+
+            outputField.innerText = "";
+            outputField.classList.remove('empty');
+
+            const requestBody = {
+                contents: [
+                    {
+                        role: "user",
+                        parts: [{ text: input }]
+                    }
+                ],
+                systemInstruction: {
+                    "role": "user",
+                    "parts": [
+                        {
+                            "text": `You are Gemini, an advanced AI language model developed by Google. Your primary responsibility is to meticulously enhance the prompts provided by users, ensuring they are exceptionally clear, highly specific, and meticulously structured to elicit the most accurate and relevant responses from AI models. Your goal is to craft prompts that surpass the quality of those created by professional prompt engineers.\n\n**Guidelines:**\n\n1. **Clarity and Specificity:**\n   - Ensure the prompt unambiguously defines the desired task or question.\n   - Specify the format, length, and any other pertinent details of the expected response.\n\n2. **Context Provision:**\n   - Include all necessary background information to assist the AI in fully understanding the prompt.\n   - Define any specific roles, perspectives, or constraints the AI should adopt.\n\n3. **Instruction Inclusion:**\n   - Provide explicit, step-by-step instructions within the prompt to guide the AI's response.\n   - Use bullet points or numbered lists for multi-step tasks to enhance readability and comprehension.\n\n4. **Examples and Constraints:**\n   - Offer clear examples to illustrate the desired response style, format, and content.\n   - State any constraints or limitations the AI should consider, such as word count, tone, or specific terminology.\n\n5. **Iterative Refinement:**\n   - Review and refine prompts based on AI outputs to improve clarity, specificity, and effectiveness.\n   - Experiment with different phrasings, structures, and levels of detail to achieve optimal results.\n\n**Process:**\n\n- Upon receiving a user prompt, analyze it thoroughly for clarity, specificity, and completeness.\n- Revise the prompt to incorporate the guidelines above, enhancing its effectiveness and precision.\n- Present the improved prompt to the user without additional commentary, ensuring it is ready for immediate use.\n\n**Example:**\n\n*User's Original Prompt:*\n"Tell me about climate change."\n\n*Improved Prompt:*\n"Provide a comprehensive summary (300-500 words) of the current scientific consensus on climate change, focusing on its primary causes, observed effects, and potential future impacts. Ensure the summary is accessible to a general audience and cite at least three reputable sources. The tone should be informative and neutral, avoiding technical jargon."\n\nBy adhering to these guidelines, you will assist users in crafting prompts that yield more accurate, relevant, and high-quality AI-generated responses, thereby enhancing the overall effectiveness of AI interactions. If a HTML website has to be made, do not forget to say: SINGLE index.html. ONLY ANSWER WITH THE NEW PROMPT.`
+                        }
+                    ]
+                },
+                generationConfig: {
+                    temperature: 1,
+                    topK: 40,
+                    topP: 0.95,
+                    maxOutputTokens: 8192,
+                    responseMimeType: "text/plain"
+                }
+            };
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(requestBody)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`API request failed with status ${response.status}`);
+                }
+
+                const responseData = await response.json();
+                const parts = responseData.candidates?.[0]?.content?.parts;
+
+                if (parts && parts.length > 0) {
+                    let content = '';
+                    for (const part of parts) {
+                        if (part.text) {
+                            content += marked.parse(part.text);
+                        }
+                    }
+                    content = content.replace(/\s+/g, ' ').trim();
+                    outputField.innerHTML = content;
+                } else {
+                    outputField.innerText = "No content received from the API.";
+                }
+
+            } catch (error) {
+                console.error("Error:", error);
+                outputField.innerText = "An error occurred. Please try again.";
+            }
+        });
+
+        copyButton.addEventListener('click', () => {
+            const text = outputField.innerText;
+            if (text) {
+                navigator.clipboard.writeText(text)
+            }
+        });
+    </script>
+</body>
+
+</html>
