@@ -57,6 +57,9 @@ All projects are or will be **open-source**, so feel free to contribute, modify,
 14. **Day 14 - ShortURL**  
     A website that shortens URLs using LLM Tokenization. Does work for famous URLs like Google's, but once they get long and weird, it becomes bad/longer...
 
+14. **Day 15 - Chess**  
+    A fully functional (with bugs you will never experience 🤫) Chess Engine.
+
 ---
 
 ## Connect
