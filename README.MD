@@ -3,7 +3,7 @@
 ![Title Image](logo.jpg)
 
 ## Overview
-The **17-Day Challenge** is a personal project to create one website every day for 17 consecutive days. Each project is a unique concept, showcasing creativity, technical skills, and problem-solving in web development. This journey began on **21.12.24** and ends on **06.01.25**, during my winter holidays. ❤️
+The **17-Day Challenge** is a personal project to create one website every day for 17 consecutive days. Each project is a unique concept, showcasing creativity, technical skills, and problem-solving in web development. This journey began on **21.12.24** and ended on **06.01.25**, during my winter holidays. ❤️
 
 ### Challenge Goal:
 Build 17 websites in 17 days to sharpen skills, explore new ideas, and have fun while creating.  
@@ -62,6 +62,9 @@ All projects are or will be **open-source**, so feel free to contribute, modify,
 
 14. **Day 16 - TicTacToe**  
     Just a TicTacToe game where you play against Minimax with Alpha Beta Pruning. But there is more... 3x3 is normal, this one has 5x5 too!
+
+14. **Day 17 - Be Kind**  
+	The Grand Finale of my challenge is just a little website that encourages you to do some good in the world. To everyone reading this: Be kind.
 
 ---
 
